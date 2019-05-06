@@ -257,7 +257,7 @@ public protocol ExpressionOperable: ExpressionCanBeOperated {
     func glob(_ operand: ExpressionConvertible) -> Expression
     func match(_ operand: ExpressionConvertible) -> Expression
     func regexp(_ operand: ExpressionConvertible) -> Expression
-
+    func collate(_ operand: ExpressionConvertible) -> Expression
     func notLike(_ operand: ExpressionConvertible) -> Expression
     func notGlob(_ operand: ExpressionConvertible) -> Expression
     func notMatch(_ operand: ExpressionConvertible) -> Expression
@@ -267,7 +267,7 @@ public protocol ExpressionOperable: ExpressionCanBeOperated {
     func glob(_ operand: ExpressionConvertible, escape: ExpressionConvertible) -> Expression
     func match(_ operand: ExpressionConvertible, escape: ExpressionConvertible) -> Expression
     func regexp(_ operand: ExpressionConvertible, escape: ExpressionConvertible) -> Expression
-
+    func collate(_ operand: ExpressionConvertible, escape: ExpressionConvertible) -> Expression
     func notLike(_ operand: ExpressionConvertible, escape: ExpressionConvertible) -> Expression
     func notGlob(_ operand: ExpressionConvertible, escape: ExpressionConvertible) -> Expression
     func notMatch(_ operand: ExpressionConvertible, escape: ExpressionConvertible) -> Expression
@@ -438,6 +438,9 @@ extension ExpressionOperable {
     public func regexp(_ operand: ExpressionConvertible) -> Expression {
         return Self.operate(left: self, operator: "REGEXP", right: operand)
     }
+    public func collate(_ operand: ExpressionConvertible) -> Expression {
+        return Self.operate(left: self, operator: "COLLATE", right: operand)
+    }
     public func notLike(_ operand: ExpressionConvertible) -> Expression {
         return Self.operate(left: self, operator: "NOT LIKE", right: operand)
     }
@@ -462,6 +465,9 @@ extension ExpressionOperable {
     }
     public func regexp(_ operand: ExpressionConvertible, escape: ExpressionConvertible) -> Expression {
         return Self.operate(one: self, operator1: "REGEXP", two: operand, operator2: "ESCAPE", three: escape)
+    }
+    public func collate(_ operand: ExpressionConvertible, escape: ExpressionConvertible) -> Expression {
+        return Self.operate(one: self, operator1: "COLLATE", two: operand, operator2: "ESCAPE", three: escape)
     }
     public func notLike(_ operand: ExpressionConvertible, escape: ExpressionConvertible) -> Expression {
         return Self.operate(one: self, operator1: "NOT LIKE", two: operand, operator2: "ESCAPE", three: escape)
